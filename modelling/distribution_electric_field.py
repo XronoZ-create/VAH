@@ -21,6 +21,7 @@ class DistributionElectricPotential():
         self.massive_for_check_vacancies = massive_for_check_vacancies
 
         for self.iter_cycleTemp in range(0, 100):
+
             for self.i in range(0, SIZE_X):
                 for self.j in range(0, SIZE_Y):
                     if self.massive_for_check_vacancies[self.i, self.j] == 1:
@@ -33,7 +34,10 @@ class DistributionElectricPotential():
                             break
                         self.Zcol += 1
                     self.massiv_potential[self.i, SIZE_Y-1] = 0
-                    self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
+                    if self.Zcol != 0:
+                        self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
+                    elif self.Zcol == 0 and self.i == 15:
+                        self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
                     self.Zcol = 0
 
             # for self.j in range(1, SIZE_Y-1):
@@ -69,9 +73,12 @@ class DistributionElectricPotential():
 
                     self.massiv_potential[self.i, self.j] = (self.fil1 + self.fil2 + self.fil3 + self.fil4) / 4
 
-            for self.i in range(0,SIZE_X):
-                self.massiv_potential[self.i, SIZE_Y-1] = 0
-                self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
+            # for self.i in range(0,SIZE_X):
+            #     self.massiv_potential[self.i, SIZE_Y-1] = 0
+            #     if self.Zcol != 0:
+            #         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
+            #     elif self.Zcol == 0 and self.i == 15:
+            #         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
 
             # for self.j in range(1,SIZE_Y-1):
             #     for self.i in range(0, SIZE_X):

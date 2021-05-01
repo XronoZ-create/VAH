@@ -12,9 +12,9 @@ from draw.draw_VAH import DrawVAH
 
 
 logger.add("debug.log", format="{time} {level} {message}", level="DEBUG")
-START_U_FORM = 1000
-MAX_U_FORM = 7000
-STEP_U_FORM = 1000
+START_U_FORM = 1970
+MAX_U_FORM = 1979
+STEP_U_FORM = 1
 
 @logger.catch
 def start():
