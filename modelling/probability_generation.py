@@ -84,7 +84,7 @@ class ProbabilityGeneration():
                     self.v = (LATTICE_CONST / EFECTIVE_FREQ_VIBRATION) * math.exp(-HEIGHT_MIGRATION_BARRIER /
                         (CONST_BOLTZMAN * self.massiv_temp[self.i, self.j]))\
                         * math.sinh(
-                            (CHARGE_E * DRIFT_COEF * (-self.massiv_field[self.i, self.j]))
+                            (CHARGE_E * DRIFT_COEF * abs(self.massiv_field[self.i, self.j]))
                             / (CONST_BOLTZMAN * self.massiv_temp[self.i, self.j])
                         )
                     self.u = 0.5

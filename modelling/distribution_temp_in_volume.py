@@ -3,6 +3,7 @@
 
 import numpy as np
 from modelling.const_variable import *
+import random
 
 class DistributionTempInVolume():
     def __init__(self):
@@ -42,7 +43,7 @@ class DistributionTempInVolume():
 
                     self.q = 0
                     if self.massive_for_check_vacancies[self.i, self.j] == 1:
-                        self.massive_help_for_temp[self.i, self.j] = TEMP_O_VAC
+                        self.massive_help_for_temp[self.i, self.j] = TEMP_O_VAC+(random.randint(-STEP_FRIX_TEMP, STEP_FRIX_TEMP))
                     else:
                         self.massive_help_for_temp[self.i, self.j] = (
                                 self.massiv_temp[self.i, self.j] +

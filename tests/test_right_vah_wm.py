@@ -63,6 +63,7 @@ def start():
         draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 1000)
         draw_set_reset.draw_temp_distribution(massive_temp=dt.massiv_temp)
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
+        draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
 
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
