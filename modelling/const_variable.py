@@ -11,14 +11,14 @@ dt = 0.1  #
 # THERMAL_CONDUCTIVITY = 1  # Теплопроводность (a)
 h = 1  #
 
-TIME_FORMATION_O_VAC = 1 * 10**(-9)  # время формирования вакансии
+TIME_FORMATION_O_VAC = 1 * 10**(-11)  # время формирования вакансии
 HEIGHT_MIGRATION_BARRIER = 2.5 * 1.6 * (10 ** -19)  #
-FORMING_COEF_ENHANCEMENT = 34 * 10**(-28)  # МЕНЯЕТСЯ. Чем больше, тем быстрее
+FORMING_COEF_ENHANCEMENT = 32 * 10**(-28)  # МЕНЯЕТСЯ. Чем больше, тем быстрее
 
 # Константы для рекомбинации
-RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**10  # МЕНЯЕТСЯ
+RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**16  # МЕНЯЕТСЯ
 LATTICE_CONST = 623 * 10**(-12)
-DRIFT_COEF = 28 * 10**(-9)  # МЕНЯЕТСЯ. Чем больше, тем медленнее
+DRIFT_COEF = 1.5 * 10**(-9)  # МЕНЯЕТСЯ. Чем больше, тем медленнее
 CONCENTRATION_DECAYING_LENGHT_IONS = 1 * 10**(-9)
 
 SIZE_X = 30  # 32
@@ -40,3 +40,13 @@ ZERRO_CURRENT = 1 * 10**(-10)
 EQUAL_THERMAL_RESISTANCE = 5 * 10**5
 
 TEMP_ENVIRONMENT = 323
+NUM_RAND_V0 = 5
+
+START_U_FORM = 2000
+MAX_U_FORM = 2300
+STEP_U_FORM = 100
+
+POTENTIAL_VMAX = MAX_U_FORM / 1000
+POTENTIAL_VMIN = START_U_FORM / 1000
+FIELD_VMAX = POTENTIAL_VMAX/MIDDLE_SPACE_TRAP
+FIELD_VMIN = POTENTIAL_VMIN/SIZE_Y*MIDDLE_SPACE_TRAP

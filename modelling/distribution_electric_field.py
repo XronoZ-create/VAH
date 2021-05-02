@@ -128,13 +128,27 @@ class DistributionElectricField():
     def __init__(self):
         pass
 
-    def calc(self, massiv_potential, massive_for_check_vacancies):
+    def calc(self, massive_for_check_vacancies, POTENTIAL_O_VAC):
         self.massiv_field = np.zeros((SIZE_X, SIZE_Y))
         self.massive_for_check_vacancies = massive_for_check_vacancies
 
         for self.i in range(0, SIZE_X):
             for self.j in range(0, SIZE_Y):
-                self.massiv_field[self.i, self.j] = massiv_potential[self.i, self.j]/((SIZE_Y-self.j)*MIDDLE_SPACE_TRAP)
+
+                self.sum_Vo = 0
+                for self._j in range(0, SIZE_Y):
+                    if self.massive_for_check_vacancies[self.i, self._j] == 1:
+                        self.sum_Vo += 1
+
+                try:
+                    self.E = (POTENTIAL_O_VAC) / ((SIZE_Y -self.sum_Vo)*MIDDLE_SPACE_TRAP)
+                except:
+                    self.E = (POTENTIAL_O_VAC) / (MIDDLE_SPACE_TRAP)
+                self.massiv_field[self.i, self.j] = self.E
+
+        # for self.i in range(0, SIZE_X):
+        #     for self.j in range(0, SIZE_Y):
+        #         self.massiv_field[self.i, self.j] = massiv_potential[self.i, self.j]/((SIZE_Y-self.j)*MIDDLE_SPACE_TRAP)
 
         # for self.i in range(0, SIZE_X):
         #     self.massiv_field[self.i, 0] = massiv_potential[self.i, 0] / (SIZE_Y*MIDDLE_SPACE_TRAP)
@@ -160,5 +174,5 @@ class DistributionElectricField():
 
         return self.massiv_field
 
-    def calc_wom(self, massiv_potential):
-        return self.calc(massiv_potential=massiv_potential, massive_for_check_vacancies=np.zeros((SIZE_X, SIZE_Y)))
+    def calc_wom(self, POTENTIAL_O_VAC):
+        return self.calc(massive_for_check_vacancies=np.zeros((SIZE_X, SIZE_Y)), POTENTIAL_O_VAC=POTENTIAL_O_VAC)

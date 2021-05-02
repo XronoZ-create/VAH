@@ -50,7 +50,7 @@ class DrawSetReset():
         self.axs[2].set_title('Распределение напряженности')
         self.axs[2].grid(True)
 
-        self.im2 = self.axs[2].imshow(massive_field.T, origin='lower')
+        self.im2 = self.axs[2].imshow(massive_field.T, origin='lower', vmin=FIELD_VMIN, vmax=FIELD_VMAX, cmap='jet')
         self.cb2 = self.fig.colorbar(self.im2, ax=self.axs[2], orientation='horizontal')
 
     def draw_temp_distribution(self, massive_temp):
@@ -68,7 +68,7 @@ class DrawSetReset():
         self.axs[1].set_title('Распределение потенциала')
         self.axs[1].grid(True)
 
-        self.im1 = self.axs[1].imshow(potential.T, origin='lower')
+        self.im1 = self.axs[1].imshow(potential.T, origin='lower', vmin=POTENTIAL_VMIN, vmax=POTENTIAL_VMAX, cmap='jet')
         self.cb1 = self.fig.colorbar(self.im1, ax=self.axs[1], orientation='horizontal')
 
     def create_animation(self):
