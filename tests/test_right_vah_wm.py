@@ -56,7 +56,7 @@ def start():
                        )
 
     # Рекомбинация
-    for _U in range(MAX_U_FORM, START_U_FORM-2000, -STEP_U_FORM):
+    for _U in range(MAX_U_FORM, START_U_FORM+1000, -STEP_U_FORM):
         print('U:', _U / 1000)
         coord_o_vac = probgen.calc_reset_wm(massiv_temp=dt.massiv_temp, massiv_field=massiv_field, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
 
@@ -69,15 +69,15 @@ def start():
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
         massiv_field = df.calc(massive_for_check_vacancies=probgen.massive_for_check_vacancies, POTENTIAL_O_VAC=_U / 1000)
-        dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
+        dv.add_point_2(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                    massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                    massive_temp=dt.massiv_temp
                                                                                    )
                        )
 
 
-    draw_set_reset.create_animation()
-    plt.show()
-    # dv.draw()
+    # draw_set_reset.create_animation()
+    # plt.show()
+    dv.draw()
 
 start()

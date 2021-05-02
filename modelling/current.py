@@ -9,8 +9,8 @@ class Current:
         pass
 
     def calc_density_current_hrs(self, massive_field, massive_for_check_vacancies, massive_temp):
-        print('massive_field:', massive_field)
-        print('massive_temp:', massive_temp)
+        # print('massive_field:', massive_field)
+        # print('massive_temp:', massive_temp)
         self.density_current = 0
         for self.i in range(0, SIZE_X):
             # Считаем среднее расстояние между ловушками
@@ -18,7 +18,7 @@ class Current:
             for self.j in range(0, SIZE_Y):
                 if massive_for_check_vacancies[self.i, self.j] == 1:
                     self.list_vac_in_row.append(self.j)
-            if len(self.list_vac_in_row) > 1:
+            if len(self.list_vac_in_row) > 0:
                 self.all_space = 0
                 self.i_space = 0
                 for self.vac in self.list_vac_in_row:
@@ -39,7 +39,7 @@ class Current:
                 self.T += massive_temp[self.i, self.j]
             self.T = self.T / SIZE_Y
 
-            if len(self.list_vac_in_row) > 1:
+            if len(self.list_vac_in_row) > 0:
                 print('other:', (CHARGE_E / (self.s ** 2)) * (ENERGY_IONIZATION_TRAP / CONST_PLANKA))
                 print('exp:', math.exp(-
                         (
