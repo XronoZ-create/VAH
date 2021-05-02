@@ -56,7 +56,7 @@ def start():
                        )
 
     # Рекомбинация
-    for _U in range(MAX_U_FORM, START_U_FORM+1000, -STEP_U_FORM):
+    for _U in range(MAX_U_FORM, START_U_FORM, -STEP_U_FORM):
         print('U:', _U / 1000)
         coord_o_vac = probgen.calc_reset_wm(massiv_temp=dt.massiv_temp, massiv_field=massiv_field, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
 
@@ -76,7 +76,7 @@ def start():
                        )
 
 
-    # draw_set_reset.create_animation()
+    draw_set_reset.create_animation()
     # plt.show()
     dv.draw()
 

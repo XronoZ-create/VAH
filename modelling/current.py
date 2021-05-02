@@ -73,7 +73,8 @@ class Current:
                 else:
                     self.density_current += self.one_density_current
             else:
-                self.density_current += ZERRO_CURRENT
+                # self.density_current += ZERRO_CURRENT
+                pass
 
         print("current:", self.density_current)
         return self.density_current
