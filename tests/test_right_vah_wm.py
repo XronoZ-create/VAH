@@ -77,7 +77,7 @@ def start():
 
 
     draw_set_reset.create_animation()
-    # plt.show()
+    plt.show()
     dv.draw()
 
 start()

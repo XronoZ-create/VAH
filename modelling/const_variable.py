@@ -28,22 +28,28 @@ POROG_GEN = 0.9
 POROG_REC = 2
 
 # Константы для рассчет тока Пула-Френкеля
-ENERGY_IONIZATION_TRAP = 4 * CHARGE_E  # энергия ионизации ловушки
+ENERGY_IONIZATION_TRAP = 1.4 * CHARGE_E  # энергия ионизации ловушки
+E_INF = 4.2
 CONST_PLANKA = 6.62 * 10 ** (-34)  # постоянная Планка
-CONST_FRENKEL = np.sqrt((CHARGE_E**3)/(np.pi*8*8.85*10**(-12))) # постоянная Френкеля
+CONST_FRENKEL = np.sqrt((CHARGE_E**3)/(np.pi*E_INF*8.85*10**(-12))) # постоянная Френкеля
 CURRENT_OGR = 1 * 10**(500)
 C_AXIS = 623 * 10**(-12)
 MIDDLE_SPACE_TRAP = C_AXIS # среднее расстояние между ловушками 623 * 10**-12
 ZERRO_CURRENT = 1 * 10**(-10)
 
+# Константы для пропорционального рассчет тока Пула-Френкеля
+A_CONST = 1*10**(-1)
+B_CONST = 35
+
+
 # Константы для рассчета температуры
 EQUAL_THERMAL_RESISTANCE = 5 * 10**5
 
 TEMP_ENVIRONMENT = 323
-NUM_RAND_V0 = 5
+NUM_RAND_V0 = 10
 
 START_U_FORM = 0
-MAX_U_FORM = 4000
+MAX_U_FORM = 5000
 STEP_U_FORM = 100
 
 POTENTIAL_VMAX = MAX_U_FORM / 1000
