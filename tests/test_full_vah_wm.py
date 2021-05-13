@@ -12,11 +12,11 @@ from draw.draw_VAH import DrawVAH
 
 
 logger.add("debug.log", format="{time} {level} {message}", level="DEBUG")
-MAX_U_FORM = 60
+
 
 @logger.catch
 def start():
-    draw_set_reset = DrawSetReset(num_plots=3)
+    draw_set_reset = DrawSetReset(num_plots=4)
     d = DistributionElectricPotential()
     dt = DistributionTempInVolume()
     df = DistributionElectricField()
@@ -24,124 +24,110 @@ def start():
     current = Current()
     dv = DrawVAH()
 
-    # Формовка
-    for _U in range(0, MAX_U_FORM, 1):
-        print('U:', _U / 10)
+    # Формовка 1
+    for _U in range(START_U_FORM, MAX_U_FORM+STEP_U_FORM, STEP_U_FORM):
+        print('U:', _U / 1000)
 
-        # d.calc_wom(POTENTIAL_O_VAC=_U / 10)
-        # dt.calc_wom()
-        if _U != 0:
-            d.calc_wm(POTENTIAL_O_VAC=_U / 10, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-            dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-        else:
-            d.calc_wom(POTENTIAL_O_VAC=_U / 10)
+        if _U == START_U_FORM:
+            d.calc_wom(POTENTIAL_O_VAC=_U / 1000)
             dt.calc_wom()
-        massiv_field = df.calc(massiv_potential=d.massiv_potential)
-        if _U != 0:
+
+            coord_o_vac = probgen.generate_random_vac()
+        else:
             coord_o_vac = probgen.calc_formattion_wm(
                 massiv_temp=dt.massiv_temp,
                 massiv_field=massiv_field,
                 massive_for_check_vacancies=probgen.massive_for_check_vacancies
             )
-        else:
-            coord_o_vac = probgen.calc_formattion_wom(
-                massiv_temp=dt.massiv_temp,
-                massiv_field=massiv_field
-            )
 
-        d.calc_wm(POTENTIAL_O_VAC=_U / 10, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        d.calc_wm(POTENTIAL_O_VAC=_U / 1000, massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        massiv_field = df.calc(massive_for_check_vacancies=probgen.massive_for_check_vacancies, POTENTIAL_O_VAC=_U / 1000)
 
-        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 10)
+        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 1000)
         draw_set_reset.draw_temp_distribution(massive_temp=dt.massiv_temp)
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
+        draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
-        dv.add_point_1(potencial=_U / 10, current=current.calc_density_current_hrs(massive_field=massiv_field,
+        dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                     massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                     massive_temp=dt.massiv_temp
                                                                                     )
                        )
 
-    # Рекомбинация
-    for _U in range(MAX_U_FORM, 0, -1):
-        print('U:', _U / 10)
-        coord_o_vac = probgen.calc_reset_wm(massiv_temp=dt.massiv_temp, massiv_field=massiv_field, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+    # Формовка 2
+    for _U in range(MAX_U_FORM, START_U_FORM-STEP_U_FORM, -STEP_U_FORM):
+        print('U:', _U / 1000)
+        coord_o_vac = probgen.calc_formattion_wm(massiv_temp=dt.massiv_temp, massiv_field=massiv_field, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
 
-        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 10)
+        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 1000)
         draw_set_reset.draw_temp_distribution(massive_temp=dt.massiv_temp)
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
+        draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
 
-        d.calc_wm(POTENTIAL_O_VAC=(_U / 10), massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-        massiv_field = df.calc(massiv_potential=d.massiv_potential)
-        dv.add_point_1(potencial=_U / 10, current=current.calc_density_current_hrs(massive_field=massiv_field,
+        massiv_field = df.calc(massive_for_check_vacancies=probgen.massive_for_check_vacancies, POTENTIAL_O_VAC=_U / 1000)
+        dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                    massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                    massive_temp=dt.massiv_temp
                                                                                    )
                        )
 
-    # ЛЕВАЯ ЧАСТЬ
-    # Формовка
-    for _U in range(0, -MAX_U_FORM, -1):
-        print('U:', _U / 10)
+    # Рекомбинация 1
+    for _U in range(START_U_FORM - STEP_U_FORM, -(MAX_U_FORM + STEP_U_FORM), -STEP_U_FORM):
+        print('U:', _U / 1000)
 
-        # d.calc_wom(POTENTIAL_O_VAC=_U / 10)
-        # dt.calc_wom()
-        if _U != 0:
-            d.calc_wm(POTENTIAL_O_VAC=_U / 10, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-            dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-        else:
-            d.calc_wom(POTENTIAL_O_VAC=_U / 10)
-            dt.calc_wom()
-        massiv_field = df.calc(massiv_potential=d.massiv_potential)
-        if _U != 0:
-            coord_o_vac = probgen.calc_formattion_wm(
-                massiv_temp=dt.massiv_temp,
-                massiv_field=massiv_field,
-                massive_for_check_vacancies=probgen.massive_for_check_vacancies
-            )
-        else:
-            coord_o_vac = probgen.calc_formattion_wom(
-                massiv_temp=dt.massiv_temp,
-                massiv_field=massiv_field
-            )
+        coord_o_vac = probgen.calc_reset_wm(
+            massiv_temp=dt.massiv_temp,
+            massiv_field=massiv_field,
+            massive_for_check_vacancies=probgen.massive_for_check_vacancies
+        )
 
-        d.calc_wm(POTENTIAL_O_VAC=_U / 10, massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        d.calc_wm(POTENTIAL_O_VAC=_U / 1000, massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                  massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        massiv_field = df.calc(massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                               POTENTIAL_O_VAC=_U / 1000)
 
-        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 10)
+        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 1000)
         draw_set_reset.draw_temp_distribution(massive_temp=dt.massiv_temp)
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
+        draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
-        dv.add_point_1(potencial=_U / 10, current=current.calc_density_current_hrs(massive_field=massiv_field,
-                                                                                   massive_for_check_vacancies=probgen.massive_for_check_vacancies,
-                                                                                   massive_temp=dt.massiv_temp
-                                                                                   )
+        dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
+                                                                                     massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                                                                                     massive_temp=dt.massiv_temp
+                                                                                     )
                        )
 
-    # Рекомбинация
-    for _U in range(-MAX_U_FORM, 0, 1):
-        print('U:', _U / 10)
+    # Рекомбинация 2
+    for _U in range(-MAX_U_FORM, START_U_FORM - STEP_U_FORM, STEP_U_FORM):
+        print('U:', _U / 1000)
         coord_o_vac = probgen.calc_reset_wm(massiv_temp=dt.massiv_temp, massiv_field=massiv_field,
                                             massive_for_check_vacancies=probgen.massive_for_check_vacancies)
 
-        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 10)
+        draw_set_reset.draw_vacancies(coord_o_vac, legend=_U / 1000)
         draw_set_reset.draw_temp_distribution(massive_temp=dt.massiv_temp)
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
+        draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
 
-        d.calc_wm(POTENTIAL_O_VAC=(_U / 10), massive_for_check_vacancies=probgen.massive_for_check_vacancies)
+        d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                  massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
-        massiv_field = df.calc(massiv_potential=d.massiv_potential)
-        dv.add_point_1(potencial=_U / 10, current=current.calc_density_current_hrs(massive_field=massiv_field,
-                                                                                   massive_for_check_vacancies=probgen.massive_for_check_vacancies,
-                                                                                   massive_temp=dt.massiv_temp
-                                                                                   )
+        massiv_field = df.calc(massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                               POTENTIAL_O_VAC=_U / 1000)
+        dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
+                                                                                     massive_for_check_vacancies=probgen.massive_for_check_vacancies,
+                                                                                     massive_temp=dt.massiv_temp
+                                                                                     )
                        )
 
     draw_set_reset.create_animation()
     plt.show()
     dv.draw()
+
 
 start()

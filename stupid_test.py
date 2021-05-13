@@ -1,2 +1,4 @@
-for  a in range(0, -500, -1):
-    print(a)
+import math
+
+a = 0
+print(math.log10(a))

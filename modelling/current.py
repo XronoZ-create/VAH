@@ -71,8 +71,8 @@ class Current:
                 #                 (2 * CONST_BOLTZMAN * self.T)
                 #         )
                 #     )
-                self.one_density_current = self.E * math.exp(
-                    (A_CONST*(math.sqrt(self.E)/self.T)) - B_CONST
+                self.one_density_current = abs(self.E) * math.exp(
+                    (A_CONST*(math.sqrt(abs(self.E))/self.T)) - B_CONST
                 )
                 if self.one_density_current > CURRENT_OGR:
                     self.density_current += CURRENT_OGR
@@ -83,4 +83,4 @@ class Current:
                 pass
 
         print("current:", self.density_current)
-        return self.density_current
+        return abs(self.density_current)

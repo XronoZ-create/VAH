@@ -77,18 +77,18 @@ class ProbabilityGeneration():
                     print('Напряженность поля в точке i=%s j=%s: %s' % (self.i, self.j, self.massiv_field[self.i, self.j]))
                     print('Температура в точке i=%s j=%s: %s' % (self.i, self.j, self.massiv_temp[self.i, self.j]))
                     self.P_R0 = (
-                            EFECTIVE_FREQ_VIBRATION * TIME_FORMATION_O_VAC * math.exp(-HEIGHT_MIGRATION_BARRIER /
+                            EFECTIVE_FREQ_VIBRATION * TIME_FORMATION_O_VAC * np.exp(-HEIGHT_MIGRATION_BARRIER /
                         (CONST_BOLTZMAN * self.massiv_temp[self.i, self.j])
                     )
                     )
-                    self.v = (LATTICE_CONST / EFECTIVE_FREQ_VIBRATION) * math.exp(-HEIGHT_MIGRATION_BARRIER /
+                    self.v = (LATTICE_CONST / EFECTIVE_FREQ_VIBRATION) * np.exp(-HEIGHT_MIGRATION_BARRIER /
                         (CONST_BOLTZMAN * self.massiv_temp[self.i, self.j]))\
                         * math.sinh(
-                            (CHARGE_E * DRIFT_COEF * abs(self.massiv_field[self.i, self.j]))
+                            (CHARGE_E * DRIFT_COEF * self.massiv_field[self.i, self.j])
                             / (CONST_BOLTZMAN * self.massiv_temp[self.i, self.j])
                         )
-                    self.u = 0.5
-                    self.beta = RECOMBINATION_ENHANCEMENT_FACTOR * math.exp((-self.v*TIME_FORMATION_O_VAC)/CONCENTRATION_DECAYING_LENGHT_IONS) * self.u
+                    self.u = U_CONST
+                    self.beta = RECOMBINATION_ENHANCEMENT_FACTOR * np.exp((-self.v*TIME_FORMATION_O_VAC)/CONCENTRATION_DECAYING_LENGHT_IONS) * self.u
                     print("P_R0:", self.P_R0)
                     print("v:", self.v)
                     print("beta:", self.beta)
@@ -109,13 +109,27 @@ class ProbabilityGeneration():
                 if self.massive_for_check_vacancies[self.i, self.j] == 1:
                     self.listOfCoordinates.append([self.i, self.j])
 
-        print('Ячейки рекомбинации:', self.list_rec_coordinates)
+        print('%s Ячейки рекомбинации: %s' % (len(self.list_rec_coordinates), self.list_rec_coordinates))
         return self.listOfCoordinates
 
     def generate_random_vac(self):
         self.massive_for_check_vacancies = np.zeros((SIZE_X, SIZE_Y))
         for self._a in range(0, NUM_RAND_V0):
             self.massive_for_check_vacancies[random.randint(0, (SIZE_X-1)), random.randint(0, (SIZE_Y-1))] = 1
+
+        self.listOfCoordinates = []
+        for self.i in range(0, SIZE_X):
+            for self.j in range(0, SIZE_Y):
+                if self.massive_for_check_vacancies[self.i, self.j] == 1:
+                    self.listOfCoordinates.append([self.i, self.j])
+        print('Ячейки генерации:', self.listOfCoordinates)
+        return self.listOfCoordinates
+
+    def generate_full_vac(self):
+        self.massive_for_check_vacancies = np.zeros((SIZE_X, SIZE_Y))
+        for self.i in range(0, SIZE_X):
+            for self.j in range(0, SIZE_Y):
+                self.massive_for_check_vacancies[self.i, self.j] = 1
 
         self.listOfCoordinates = []
         for self.i in range(0, SIZE_X):
