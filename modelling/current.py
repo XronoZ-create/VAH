@@ -13,21 +13,6 @@ class Current:
         # print('massive_temp:', massive_temp)
         self.density_current = 0
         for self.i in range(0, SIZE_X):
-            # Считаем среднее расстояние между ловушками
-            self.list_vac_in_row = []
-            for self.j in range(0, SIZE_Y):
-                if massive_for_check_vacancies[self.i, self.j] == 1:
-                    self.list_vac_in_row.append(self.j)
-            if len(self.list_vac_in_row) > 0:
-                self.all_space = 0
-                self.i_space = 0
-                for self.vac in self.list_vac_in_row:
-                        self.all_space += self.vac * MIDDLE_SPACE_TRAP
-                        self.i_space += 1
-                # self.s = MIDDLE_SPACE_TRAP + (((SIZE_Y - self.i_space) * MIDDLE_SPACE_TRAP) / SIZE_Y)
-                self.s = C_AXIS
-                print('middle space:', self.s)
-
             # считаем среднюю напряженность в столбце
             self.E = 0
             for self.j in range(0, SIZE_Y):
@@ -42,45 +27,13 @@ class Current:
             self.T = self.T / SIZE_Y
             print('Средняя температура в столбце:', self.T)
 
-            if len(self.list_vac_in_row) > 0:
-                print('other:', (CHARGE_E / (self.s ** 2)) * (ENERGY_IONIZATION_TRAP / CONST_PLANKA))
-                print('exp:', math.exp(-
-                        (
-                                ENERGY_IONIZATION_TRAP - (CONST_FRENKEL * math.sqrt(abs(self.E)))
-                        ) / (
-                                CONST_BOLTZMAN * self.T
-                        )
-                    ))
-                print('tanh:', math.tanh(
-                        (
-                                (CHARGE_E * abs(self.E) * self.s) /
-                                (2 * CONST_BOLTZMAN * self.T)
-                        )
-                    ))
-                print('F:', self.E)
-                # self.one_density_current = (CHARGE_E / (self.s ** 2)) * (ENERGY_IONIZATION_TRAP / CONST_PLANKA) * \
-                #     math.exp(-
-                #         (
-                #                 ENERGY_IONIZATION_TRAP - (CONST_FRENKEL * math.sqrt(abs(self.E)) )
-                #         ) / (
-                #                 CONST_BOLTZMAN * self.T
-                #         )
-                #     ) * math.tanh(
-                #         (
-                #                 (CHARGE_E * abs(self.E) * self.s) /
-                #                 (2 * CONST_BOLTZMAN * self.T)
-                #         )
-                #     )
-                self.one_density_current = abs(self.E) * math.exp(
-                    (A_CONST*(math.sqrt(abs(self.E))/self.T)) - B_CONST
-                )
-                if self.one_density_current > CURRENT_OGR:
-                    self.density_current += CURRENT_OGR
-                else:
-                    self.density_current += self.one_density_current
+            self.one_density_current = abs(self.E) * math.exp(
+                (A_CONST*(math.sqrt(abs(self.E))/self.T)) - B_CONST
+            )
+            if self.one_density_current > CURRENT_OGR:
+                self.density_current += CURRENT_OGR
             else:
-                # self.density_current += ZERRO_CURRENT
-                pass
+                self.density_current += self.one_density_current
 
         print("current:", self.density_current)
         return abs(self.density_current)
