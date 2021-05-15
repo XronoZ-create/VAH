@@ -230,7 +230,6 @@ def start():
                        )
 
     draw_set_reset.create_animation()
-    plt.show()
     dv.draw()
 
 

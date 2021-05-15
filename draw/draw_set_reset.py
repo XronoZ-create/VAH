@@ -91,6 +91,6 @@ class DrawSetReset():
         # self.camera.snap()
 
     def clear_plt(self):
-        plt.clf()
+        plt.close('all')
         self.fig, self.axs = plt.subplots(1, self.num_plots, figsize=(15, 15))
         self.norm = mpl.colors.Normalize(vmin=5, vmax=10)
