@@ -42,6 +42,16 @@ ZERRO_CURRENT = 1 * 10**(-10)
 A_CONST = 1*10**(-1)
 B_CONST = 35
 
+# Константы для рассчета омического тока
+ELECTRICAL_CONDUCTIVITY = 1
+ELECTRON_MOBILITY = 1
+EFFECTIVE_DENSITY_STATES = 1  # Nc
+CONDUCTION_BAND = 1  # Ec
+FERMI_ENERGY = 1  # Ef
+
+# Константы для пропорционального рассчета омического тока
+A_CONST_OHMIC = 1
+B_CONST_OHMIC = 1
 
 # Константы для рассчета температуры
 EQUAL_THERMAL_RESISTANCE = 5 * 10**5
