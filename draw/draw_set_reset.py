@@ -4,22 +4,24 @@ import matplotlib
 import matplotlib.pyplot as plt
 from modelling.const_variable import *
 import matplotlib.ticker as ticker
-from celluloid import Camera
 from contextlib import suppress
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import matplotlib as mpl
 from matplotlib.colors import LogNorm
-
-
+import io
+from PIL import Image
+from celluloid import Camera
 
 class DrawSetReset():
     def __init__(self, num_plots):
         matplotlib.use("TkAgg")
+        self.num_plots = num_plots
         self.fig, self.axs = plt.subplots(1, num_plots, figsize=(15,15))
-        self.camera = Camera(self.fig)
 
-        self.cmap = mpl.cm.cool
         self.norm = mpl.colors.Normalize(vmin=5, vmax=10)
+
+        self.list_images = []
+        self.camera = Camera(self.fig)
 
     def draw_vacancies(self, coordinate, legend=None):
         self.axs[0].xaxis.set_major_locator(ticker.MultipleLocator(1))
@@ -50,7 +52,10 @@ class DrawSetReset():
         self.axs[2].set_title('Распределение напряженности')
         self.axs[2].grid(True)
 
-        self.im2 = self.axs[2].imshow(massive_field.T, origin='lower', vmin=FIELD_VMIN, vmax=FIELD_VMAX, cmap='jet')
+        if massive_field[0, START_POTENTIAL_DOT_J] > 0:
+            self.im2 = self.axs[2].imshow(massive_field.T, origin='lower', vmin=FIELD_VMIN, vmax=FIELD_VMAX, cmap='jet')
+        elif massive_field[0, START_POTENTIAL_DOT_J] < 0:
+            self.im2 = self.axs[2].imshow(massive_field.T, origin='lower', vmin=-FIELD_VMAX, vmax=-FIELD_VMIN, cmap='jet')
         self.cb2 = self.fig.colorbar(self.im2, ax=self.axs[2], orientation='horizontal')
 
     def draw_temp_distribution(self, massive_temp):
@@ -67,13 +72,25 @@ class DrawSetReset():
             self.cb1.remove()
         self.axs[1].set_title('Распределение потенциала')
         self.axs[1].grid(True)
-
-        self.im1 = self.axs[1].imshow(potential.T, origin='lower', vmin=POTENTIAL_VMIN, vmax=POTENTIAL_VMAX, cmap='jet')
+        if potential[0, START_POTENTIAL_DOT_J] > 0:
+            self.im1 = self.axs[1].imshow(potential.T, origin='lower', vmin=POTENTIAL_VMIN, vmax=POTENTIAL_VMAX, cmap='jet')
+        elif potential[0, START_POTENTIAL_DOT_J] < 0:
+            self.im1 = self.axs[1].imshow(potential.T, origin='lower', vmin=-POTENTIAL_VMAX, vmax=-POTENTIAL_VMIN, cmap='jet')
         self.cb1 = self.fig.colorbar(self.im1, ax=self.axs[1], orientation='horizontal')
 
     def create_animation(self):
-        self.anim = self.camera.animate()
-        self.anim.save('scatter.gif')
+        # self.anim = self.camera.animate()
+        # self.anim.save('scatter.gif')
+        self.img, *self.imgs = [Image.open(self.f) for self.f in self.list_images]
+        self.img.save(fp='scatter.gif', format='GIF', append_images=self.imgs, save_all=True, duration=200, loop=0)
 
     def snap(self):
-        self.camera.snap()
+        self.buf = io.BytesIO()
+        plt.savefig(self.buf, format='png')
+        self.list_images.append(self.buf)
+        # self.camera.snap()
+
+    def clear_plt(self):
+        plt.clf()
+        self.fig, self.axs = plt.subplots(1, self.num_plots, figsize=(15, 15))
+        self.norm = mpl.colors.Normalize(vmin=5, vmax=10)

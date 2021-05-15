@@ -49,6 +49,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
         dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                     massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                     massive_temp=dt.massiv_temp
@@ -74,6 +75,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
         dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                     massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                     massive_temp=dt.massiv_temp
@@ -90,6 +92,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
 
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
@@ -110,6 +113,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
 
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies, massiv_potential=d.massiv_potential)
         dt.calc_wm(massive_for_check_vacancies=probgen.massive_for_check_vacancies)
@@ -142,6 +146,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
         dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                      massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                      massive_temp=dt.massiv_temp
@@ -169,6 +174,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
         dv.add_point_1(potencial=_U / 1000, current=current.calc_density_current_hrs(massive_field=massiv_field,
                                                                                      massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                                                                                      massive_temp=dt.massiv_temp
@@ -186,6 +192,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
 
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                   massiv_potential=d.massiv_potential)
@@ -209,6 +216,7 @@ def start():
         draw_set_reset.draw_electric_field_distribution(massive_field=df.massiv_field)
         draw_set_reset.draw_potential_distribution(potential=d.massiv_potential)
         draw_set_reset.snap()
+        draw_set_reset.clear_plt()
 
         d.calc_wm(POTENTIAL_O_VAC=(_U / 1000), massive_for_check_vacancies=probgen.massive_for_check_vacancies,
                   massiv_potential=d.massiv_potential)

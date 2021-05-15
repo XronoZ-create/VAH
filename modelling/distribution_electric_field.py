@@ -36,7 +36,7 @@ class DistributionElectricPotential():
                     self.massiv_potential[self.i, SIZE_Y-1] = 0
                     if self.Zcol != 0:
                         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
-                    elif self.Zcol == 0 and self.i == 15:
+                    elif self.Zcol == 0 and self.i == START_POTENTIAL_DOT_J:
                         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
                     self.Zcol = 0
 
