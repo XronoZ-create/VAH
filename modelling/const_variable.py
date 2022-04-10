@@ -16,14 +16,18 @@ HEIGHT_MIGRATION_BARRIER = 2.5 * 1.6 * (10 ** -19)  #
 FORMING_COEF_ENHANCEMENT = 32 * 10**(-28)  # МЕНЯЕТСЯ. Чем больше, тем быстрее
 
 # Константы для рекомбинации
-RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**(18)  # МЕНЯЕТСЯ
+RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**(18)  # МЕНЯЕТСЯ 1
 LATTICE_CONST = 623 * 10**(-12)
-DRIFT_COEF = 3.75 * 10**(-10)  # МЕНЯЕТСЯ. Чем больше, тем раньше
+DRIFT_COEF = 3.55 * 10**(-10)  # МЕНЯЕТСЯ. Чем больше, тем раньше 3.35
 CONCENTRATION_DECAYING_LENGHT_IONS = 0.5 * 10**(-44)  # -44
 U_CONST = 1
 
-SIZE_X = 30  # 32
-SIZE_Y = 30  # 35
+SIZE_X = 5  # 30
+SIZE_Y = 10  # 50
+THICKNESS_CONTACT = 2
+WIDTH_CONTACT = 5
+
+M_COEF = 30/SIZE_Y
 
 POROG_GEN = 0.9
 POROG_REC = 0.9
@@ -57,12 +61,13 @@ B_CONST_OHMIC = 1
 EQUAL_THERMAL_RESISTANCE = 5 * 10**5
 
 TEMP_ENVIRONMENT = 323
-NUM_RAND_V0 = 20  # 10
+NUM_RAND_V0 = 5  # 20
 
 START_U_FORM = 0
-MAX_U_FORM = 4000
-STEP_U_FORM = 100
-SMALL_STEP_FOR_ZERO = int(STEP_U_FORM/10)
+MAX_U_FORM = 2000
+STEP_U_FORM = 500
+SMALL_STEP_FOR_ZERO = int(STEP_U_FORM/2)
+
 
 POTENTIAL_VMAX = MAX_U_FORM / 1000
 POTENTIAL_VMIN = 0
@@ -71,5 +76,5 @@ FIELD_VMIN = (POTENTIAL_VMIN/SIZE_Y*MIDDLE_SPACE_TRAP) - 0.1*(POTENTIAL_VMIN/SIZ
 
 STEP_FRIX_TEMP = 10
 
-START_POTENTIAL_DOT_J = 15  # точка начального распределения напряженности
-SAVE_PLOT_SET_RESET = False
+START_POTENTIAL_DOT_J = 3  # точка начального распределения напряженности
+SAVE_PLOT_SET_RESET = True

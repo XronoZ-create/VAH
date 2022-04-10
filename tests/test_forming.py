@@ -6,7 +6,7 @@ from modelling.distribution_electric_field import DistributionElectricPotential,
 from modelling.distribution_temp_in_volume import DistributionTempInVolume
 from modelling.time_generation import TimeGeneration
 from draw.draw_set_reset import DrawVacancies
-from modelling.probability_generation import ProbabilityGeneration
+from modelling.probability import ProbabilityGeneration
 from modelling.current import Current
 import copy
 import matplotlib.pyplot as plt
@@ -21,7 +21,7 @@ current = Current()
 
 d.calc(POTENTIAL_O_VAC=3)
 dt.calc()
-massiv_field = df.calc(massiv_potential=d.massiv_potential)
+massiv_field = df.calc_wm(massiv_potential=d.massiv_potential)
 coord_o_vac = probgen.calc_formattion_wom(massiv_temp=dt.massiv_temp, massiv_field=massiv_field)
 draw_vac.draw(coord_o_vac)
 plt.show()

@@ -47,8 +47,8 @@ class DistributionTempInVolume():
                     else:
                         self.massive_help_for_temp[self.i, self.j] = (
                                 self.massiv_temp[self.i, self.j] +
-                                (self.t1 - 2 * self.massiv_temp[self.i, self.j] + self.t2) * dt / (h * h * h) +
-                                (self.t3 - 2 * self.massiv_temp[self.i, self.j] + self.t4) * dt / (h * h * h)
+                                (self.t1 - 2 * self.massiv_temp[self.i, self.j] + self.t2) * dt / (h * h) +
+                                (self.t3 - 2 * self.massiv_temp[self.i, self.j] + self.t4) * dt / (h * h)
                         )
 
             for self.i in range(0, SIZE_X):

@@ -6,7 +6,7 @@ from modelling.distribution_electric_field import DistributionElectricPotential,
 from modelling.distribution_temp_in_volume import DistributionTempInVolume
 from modelling.time_generation import TimeGeneration
 from draw.draw_set_reset import DrawSetReset
-from modelling.probability_generation import ProbabilityGeneration
+from modelling.probability import ProbabilityGeneration
 from modelling.current import Current
 import copy
 import numpy as np
@@ -27,7 +27,7 @@ for U_ in range(40,200,10):
     d.calc_wm(POTENTIAL_O_VAC=U_/10, massive_for_check_vacancies=massive_for_check_vacancies)
     dt.calc_wm(massive_for_check_vacancies=massive_for_check_vacancies)
 
-    massiv_field = df.calc(massiv_potential=d.massiv_potential)
+    massiv_field = df.calc_wm(massiv_potential=d.massiv_potential)
     coord_o_vac = probgen.calc_formattion_wm(
         massiv_temp=dt.massiv_temp,
         massiv_field=massiv_field,

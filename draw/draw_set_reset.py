@@ -27,10 +27,11 @@ class DrawSetReset():
         self.axs[0].xaxis.set_major_locator(ticker.MultipleLocator(1))
         self.axs[0].yaxis.set_major_locator(ticker.MultipleLocator(1))
         self.axs[0].set_xlim(0, SIZE_X)
-        self.axs[0].set_ylim(0, SIZE_Y)
+        self.axs[0].set_ylim(0, SIZE_Y+(THICKNESS_CONTACT*2))
         self.axs[0].grid(True)
         self.axs[0].set_title('Кислородные вакансии')
 
+        # ----------------------------------------- Кисл. вакансии -----------------------------------------------------
         self.list_coordinates = []
         self.x_coordinates = []
         self.y_coordinates = []
@@ -40,8 +41,27 @@ class DrawSetReset():
         for self.coord in self.list_coordinates:
             self.x_coordinates.append(self.coord[0] + 0.5)
         for self.coord in self.list_coordinates:
-            self.y_coordinates.append(self.coord[1] + 0.5)
+            self.y_coordinates.append(self.coord[1] + THICKNESS_CONTACT + 0.5)
+
         self.axs[0].scatter(self.x_coordinates, self.y_coordinates, s=(25/(SIZE_Y*SIZE_X))*1000)
+        # --------------------------------------------------------------------------------------------------------------
+
+        # ----------------------------------------- Контактные площадки ------------------------------------------------
+        self.array_contact_down = np.array([[[152, 3, 252]] * (SIZE_X)] * THICKNESS_CONTACT)
+        self.array_active_space = np.array([[[245, 245, 220]] * (SIZE_X)] * (SIZE_Y))
+        self.array_contact_up = np.array([[[152, 3, 252]] * (SIZE_X)] * (THICKNESS_CONTACT))
+        self.array_memristor = np.concatenate((self.array_contact_down, self.array_active_space))
+        self.array_memristor = np.concatenate((self.array_memristor, self.array_contact_up))
+        for a in list(range(0, THICKNESS_CONTACT)) + list(
+                range(SIZE_Y + THICKNESS_CONTACT, SIZE_Y + (THICKNESS_CONTACT * 2))):
+            for b in list(range(0, int((SIZE_X - (WIDTH_CONTACT)) / 2))) + list(
+                    range(int((SIZE_X - (WIDTH_CONTACT)) / 2) + WIDTH_CONTACT, SIZE_X)):
+                self.array_memristor[a][b] = [255, 255, 255]
+
+        self.extent = (0, self.array_memristor.shape[1], self.array_memristor.shape[0], 0)
+        self.axs[0].imshow(self.array_memristor, extent=self.extent)
+        # --------------------------------------------------------------------------------------------------------------
+
         if legend != None:
             self.axs[0].annotate('U=%s'%legend, xy=(SIZE_X, SIZE_Y), size=14, ha='right', va='top', bbox=dict(boxstyle='round', fc='w'))
         # self.camera.snap()

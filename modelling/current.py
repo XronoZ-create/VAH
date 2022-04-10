@@ -8,7 +8,7 @@ class Current:
     def __init__(self):
         pass
 
-    def calc_density_current_hrs(self, massive_field, massive_for_check_vacancies, massive_temp):
+    def calc_density_current(self, massive_field, massive_for_check_vacancies, massive_temp):
         # print('massive_field:', massive_field)
         # print('massive_temp:', massive_temp)
         self.density_current = 0
