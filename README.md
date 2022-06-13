@@ -2,6 +2,8 @@
 Моделирование процесса электроформовки оксидных пленок, используя модель Стэнфорд/Аризона. Построение ВАХ
 
 ![enter image description here](https://user-images.githubusercontent.com/70958549/101754504-dd9de880-3ae4-11eb-89b2-30f9c06dc160.png)
+
+![enter image description here](https://user-images.githubusercontent.com/70958549/173409201-e820f493-734e-41ae-987c-2217a9a1295e.png)
 # Стек
 
  - Python 3.9
