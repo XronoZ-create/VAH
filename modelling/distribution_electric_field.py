@@ -40,15 +40,6 @@ class DistributionElectricPotential():
                         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
                     self.Zcol = 0
 
-            # for self.j in range(1, SIZE_Y-1):
-            #     for self.i in range(0, SIZE_X):
-            #         if self.i == 0:
-            #             self.massiv_potential[0, self.j] = self.massiv_potential[1, self.j]
-            #             continue
-            #         if self.i == SIZE_X-1:
-            #             self.massiv_potential[SIZE_X-1, self.j] = self.massiv_potential[SIZE_X-2, self.j]
-            #             continue
-
             for self.i in range(0, SIZE_X):
                 for self.j in range(0, SIZE_Y):
                     if self.massiv_potential[self.i, self.j] == POTENTIAL_O_VAC or self.massive_for_check_vacancies[self.i, self.j] == 1:
@@ -72,22 +63,6 @@ class DistributionElectricPotential():
                         self.fil4 = self.massiv_potential[self.i, self.j-1]
 
                     self.massiv_potential[self.i, self.j] = (self.fil1 + self.fil2 + self.fil3 + self.fil4) / 4
-
-            # for self.i in range(0,SIZE_X):
-            #     self.massiv_potential[self.i, SIZE_Y-1] = 0
-            #     if self.Zcol != 0:
-            #         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
-            #     elif self.Zcol == 0 and self.i == 15:
-            #         self.massiv_potential[self.i, self.Zcol] = POTENTIAL_O_VAC
-
-            # for self.j in range(1,SIZE_Y-1):
-            #     for self.i in range(0, SIZE_X):
-            #         if self.i == 0:
-            #             self.massiv_potential[0, self.j] = self.massiv_potential[1, self.j]
-            #             continue
-            #         if self.i == SIZE_X-1:
-            #             self.massiv_potential[0, self.j] = self.massiv_potential[SIZE_X-2, self.j]
-            #             continue
 
             for self.j in range(SIZE_Y-1,-1, -1):
                 for self.i in range(SIZE_X-1, -1, -1):
@@ -145,32 +120,6 @@ class DistributionElectricField():
                 except:
                     self.E = (POTENTIAL_O_VAC) / (MIDDLE_SPACE_TRAP)
                 self.massiv_field[self.i, self.j] = self.E
-
-        # for self.i in range(0, SIZE_X):
-        #     for self.j in range(0, SIZE_Y):
-        #         self.massiv_field[self.i, self.j] = massiv_potential[self.i, self.j]/((SIZE_Y-self.j)*MIDDLE_SPACE_TRAP)
-
-        # for self.i in range(0, SIZE_X):
-        #     self.massiv_field[self.i, 0] = massiv_potential[self.i, 0] / (SIZE_Y*MIDDLE_SPACE_TRAP)
-        #     self.massiv_field[self.i, SIZE_Y-1] = 0
-        #
-        # for self.i in range(0, SIZE_X):
-        #     for self.j in range(0, SIZE_Y):
-        #         if self.massive_for_check_vacancies[self.i, self.j] == 1:
-        #             self.massiv_field[self.i, self.j] = massiv_potential[self.i, self.j]/((SIZE_Y-self.j)*MIDDLE_SPACE_TRAP)
-        #             continue
-        #
-        #         self.E = 0
-        #         for self.iE in range(0, SIZE_X):
-        #             for self.jE in range(0, SIZE_Y):
-        #                 if massive_for_check_vacancies[self.iE, self.jE] == 1:
-        #                     self.dx = abs(self.i - self.iE)
-        #                     self.dy = abs(self.j - self.jE)
-        #                     self.E += massiv_potential[self.iE, self.jE] / ((math.sqrt(
-        #                         ((self.dx**2) + (self.dy**2))
-        #                     )*MIDDLE_SPACE_TRAP))
-        #         self.massiv_field[self.i, self.j] = self.E
-
 
         return self.massiv_field
 

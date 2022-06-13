@@ -13,13 +13,13 @@ h = 1  #
 
 TIME_FORMATION_O_VAC = 1 * 10**(-11)  # время формирования вакансии
 HEIGHT_MIGRATION_BARRIER = 2.5 * 1.6 * (10 ** -19)  #
-FORMING_COEF_ENHANCEMENT = 32 * 10**(-28)  # МЕНЯЕТСЯ. Чем больше, тем быстрее
+FORMING_COEF_ENHANCEMENT = 32 * 10**(-28)  #
 
 # Константы для рекомбинации
-RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**(18)  # МЕНЯЕТСЯ 1
+RECOMBINATION_ENHANCEMENT_FACTOR = 1 * 10**(18)  #
 LATTICE_CONST = 623 * 10**(-12)
-DRIFT_COEF = 3.55 * 10**(-10)  # МЕНЯЕТСЯ. Чем больше, тем раньше 3.35
-CONCENTRATION_DECAYING_LENGHT_IONS = 0.5 * 10**(-44)  # -44
+DRIFT_COEF = 3.55 * 10**(-10)  #
+CONCENTRATION_DECAYING_LENGHT_IONS = 0.5 * 10**(-44)  #
 U_CONST = 1
 
 SIZE_X = 5  # 30
